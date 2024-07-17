@@ -1,0 +1,34 @@
+[
+  {
+    "speaker": "User",
+    "timestamp": "00:01:00:37",
+    "text": "큰 결심을 하고 사연을 보내게 되었습니다.",
+    "sex": "male",
+    "avatar": "https://noidia.b-cdn.net/thumbnails/726447699727.jpg",
+    "audioFile": "../audio_files/voice_0.wav"
+  },
+  {
+    "speaker": "Other",
+    "timestamp": "00:01:04:39",
+    "text": "여보, 우리 결혼한지 몇년 됐지.",
+    "sex": "female",
+    "avatar": "https://noidia.b-cdn.net/thumbnails/726447699727.jpg",
+    "audioFile": "../audio_files/voice_1.wav"
+  },
+  {
+    "speaker": "User",
+    "timestamp": "00:01:07:17",
+    "text": "5년 정도 됐지.",
+    "sex": "male",
+    "avatar": "https://noidia.b-cdn.net/thumbnails/726447699727.jpg",
+    "audioFile": "../audio_files/voice_2.wav"
+  },
+  {
+    "speaker": "User",
+    "timestamp": "00:01:09:03",
+    "text": "우와, 시간 진짜 빠르다.",
+    "sex": "male",
+    "avatar": "https://noidia.b-cdn.net/thumbnails/726447699727.jpg",
+    "audioFile": "../audio_files/voice_3.wav"
+  }
+]
