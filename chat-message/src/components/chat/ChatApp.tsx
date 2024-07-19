@@ -42,7 +42,7 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
         const currentMessage = chatData[currentIndex];
         if (currentIndex === 0) {
           // Delay for 2 seconds before displaying the first message
-          await new Promise((resolve) => setTimeout(resolve, 2000));
+          await new Promise((resolve) => setTimeout(resolve, 4000));
         }
         setMessages((prevMessages) => {
           const updatedMessages = [...prevMessages, currentMessage];

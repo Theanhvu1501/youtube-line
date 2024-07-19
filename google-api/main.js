@@ -1,16 +1,15 @@
 const fs = require("fs");
 const path = require("path");
-API_KEY = "";
+API_KEY = "AIzaSyD0GUdRrMqnkvJoytYG7AdURbjxCZCb96c";
 const dirPath = "../audio_files";
-getVoiceBase64 = async (text, sex) => {
+getVoiceBase64 = async (text, voiceName) => {
   const apiKey = API_KEY;
   const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`;
-  const name = sex === "female" ? "ko-KR-Neural2-A" : "ko-KR-Neural2-C";
   const request = {
     input: { text: text },
     voice: {
       languageCode: "ko-KR",
-      name,
+      name:voiceName,
     },
     audioConfig: {
       audioEncoding: "MP3",
@@ -68,7 +67,7 @@ const loadVoiceAndSaveFiles = async () => {
   let chatData = await readChatData();
   const voices = await Promise.all(
     chatData.map((voice, index) => {
-      return getVoiceBase64(voice.text, voice.sex).then((voiceBase64) => {
+      return getVoiceBase64(voice.text, voice.voiceName).then((voiceBase64) => {
         const fileName = `voice_${index}.wav`;
         return saveVoiceToFile(voiceBase64, fileName).then((filePath) => {
           voice.audioFile = filePath;

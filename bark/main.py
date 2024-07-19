@@ -27,7 +27,7 @@ for index, data in enumerate(chatData):
     sex = data["sex"]
     
     # Select voice preset based on sex
-    if sex == "MALE":
+    if sex == "male":
         voice_preset = "v2/ko_speaker_6"
     else:
         voice_preset = "v2/ko_speaker_0"
@@ -36,7 +36,7 @@ for index, data in enumerate(chatData):
     audio_array = generate_audio(text_prompt, voice_preset)
     
     # Define the path for the audio file
-    audio_filename = f'{audio_dir}/audio_{index}.wav'
+    audio_filename = f'{audio_dir}/voice_{index}.wav'
     
     # Save the audio to a WAV file
     write_wav(audio_filename, SAMPLE_RATE, audio_array)
@@ -45,7 +45,7 @@ for index, data in enumerate(chatData):
     data["audioFile"] = audio_filename
 
 # Write updated chatData to the JSON file
-with open('chat_data.json', 'w', encoding='utf-8') as f:
+with open('../chat_data.json', 'w', encoding='utf-8') as f:
     json.dump(chatData, f, ensure_ascii=False, indent=4)
 
 print("Dữ liệu đã được ghi vào file chat_data.json và các tệp âm thanh đã được lưu trong thư mục audio_files.")
