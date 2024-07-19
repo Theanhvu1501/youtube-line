@@ -3,13 +3,11 @@ import { MessageBox } from "react-chat-elements";
 import "react-chat-elements/dist/main.css";
 import bgVideo from "../../asset/bg.mp4";
 import imgHeader from "../../asset/header.png";
-import { SexType } from "../../constants";
 import styles from "./ChatApp.module.css";
 
 interface ChatMessage {
   speaker: string;
   text: string;
-  sex: SexType;
   timestamp: string;
   avatar?: string;
   voiceBase64?: string;
@@ -109,15 +107,15 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
             <div
               key={msg.timestamp}
               className={`flex ${
-                msg.speaker === "User" ? "justify-end" : "justify-start"
+                msg.speaker === "Speaker 1" ? "justify-end" : "justify-start"
               } mb-4`}
             >
               <div
                 className={`flex ${
-                  msg.speaker === "User" ? "justify-end" : "justify-start"
+                  msg.speaker === "Speaker 1" ? "justify-end" : "justify-start"
                 }`}
               >
-                {msg.speaker !== "User" && (
+                {msg.speaker !== "Speaker 1" && (
                   <img
                     src={msg.avatar || ""}
                     alt="Avatar"
@@ -128,16 +126,16 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
                   type="text"
                   text={msg?.text}
                   date={new Date(msg.timestamp)}
-                  position={msg.speaker === "User" ? "right" : "left"}
+                  position={msg.speaker === "Speaker 1" ? "right" : "left"}
                   styles={{
-                    backgroundColor: msg.speaker === "User" ? "#4FDE53" : "",
+                    backgroundColor: msg.speaker === "Speaker 1" ? "#4FDE53" : "",
                     padding: 20,
                     borderRadius: 50,
-                    borderTopLeftRadius: msg.speaker === "Other" ? 0 : 50,
-                    borderTopRightRadius: msg.speaker === "User" ? 0 : 50,
+                    borderTopLeftRadius: msg.speaker === "Speaker 1" ? 50 : 0,
+                    borderTopRightRadius: msg.speaker === "Speaker 1" ? 0 : 50,
                   }}
                   notchStyle={{
-                    fill: msg.speaker === "User" ? "#4FDE53" : "",
+                    fill: msg.speaker === "Speaker 1" ? "#4FDE53" : "",
                   }}
                 />
               </div>
