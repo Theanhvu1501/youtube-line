@@ -24,13 +24,14 @@ for index, data in enumerate(chatData):
     # Get text content from the dictionary
     text_prompt = data["text"]
     speaker = data["speaker"]
-    sex = data["sex"]
     
     # Select voice preset based on sex
-    if sex == "male":
+    if speaker == "Speaker 1":
         voice_preset = "v2/ko_speaker_6"
-    else:
+    if speaker == "Speaker 2":
         voice_preset = "v2/ko_speaker_0"
+    if speaker == "Speaker 3":
+        voice_preset = "v2/ko_speaker_9"
     
     # Generate audio from text
     audio_array = generate_audio(text_prompt, voice_preset)

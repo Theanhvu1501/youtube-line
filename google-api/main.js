@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-API_KEY = "AIzaSyD0GUdRrMqnkvJoytYG7AdURbjxCZCb96c";
+API_KEY = "";
 const dirPath = "../audio_files";
 getVoiceBase64 = async (text, voiceName) => {
   const apiKey = API_KEY;
