@@ -4,6 +4,7 @@ import "react-chat-elements/dist/main.css";
 import bgVideo from "../../asset/bg.mp4";
 import imgHeader from "../../asset/header.png";
 import styles from "./ChatApp.module.css";
+import notiVoice from '../../../noti_voice/iphone_notification.mp3'
 
 interface ChatMessage {
   speaker: string;
@@ -40,7 +41,15 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
         const currentMessage = chatData[currentIndex];
         if (currentIndex === 0) {
           // Delay for 2 seconds before displaying the first message
-          await new Promise((resolve) => setTimeout(resolve, 4000));
+
+           const audio = new Audio(notiVoice);
+          // Phát âm thanh
+          audio.play().catch((error) => console.error("Error playing audio:", error));
+          // Chờ âm thanh kết thúc hoặc hết 4 giây (lấy thời gian tối đa)
+          await Promise.all([
+            new Promise((resolve) => audio.onended = resolve),
+            new Promise((resolve) => setTimeout(resolve, 2000))
+          ]);
         }
         setMessages((prevMessages) => {
           const updatedMessages = [...prevMessages, currentMessage];
@@ -57,7 +66,9 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
             .play()
             .catch((error) => console.error("Error playing audio:", error));
           audio.onended = () => {
-            setCurrentIndex((prevIndex) => prevIndex + 1);
+            setTimeout(() => {
+              setCurrentIndex((prevIndex) => prevIndex + 1);
+            }, 1000);
           };
         }
         previousMessageRef.current = currentMessage;
@@ -84,7 +95,7 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
         width: 1280,
       }}
     >
-      <video
+      {/* <video
         className="absolute top-0 left-0 min-w-full min-h-full w-auto h-auto object-cover z-0"
         autoPlay
         muted
@@ -92,13 +103,14 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
       >
         <source src={bgVideo} type="video/mp4" />
         Your browser does not support the video tag.
-      </video>
+      </video> */}
 
       <div
         className="relative z-10  mx-auto border border-gray-300 shadow-lg"
         style={{
           height: 720,
           width: 1280,
+          backgroundColor:'#00FF00'
         }}
       >
         <img src={imgHeader} className={styles.animatedImage} />
@@ -128,14 +140,14 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
                   date={new Date(msg.timestamp)}
                   position={msg.speaker === "Speaker 1" ? "right" : "left"}
                   styles={{
-                    backgroundColor: msg.speaker === "Speaker 1" ? "#4FDE53" : "",
+                    backgroundColor: msg.speaker === "Speaker 1" ? "#FAE100" : "",
                     padding: 20,
-                    borderRadius: 50,
-                    borderTopLeftRadius: msg.speaker === "Speaker 1" ? 50 : 0,
-                    borderTopRightRadius: msg.speaker === "Speaker 1" ? 0 : 50,
+                    borderRadius: 20,
+                    borderTopLeftRadius: msg.speaker === "Speaker 1" ?20 : 0,
+                    borderTopRightRadius: msg.speaker === "Speaker 1" ? 0 : 20,
                   }}
                   notchStyle={{
-                    fill: msg.speaker === "Speaker 1" ? "#4FDE53" : "",
+                    fill: msg.speaker === "Speaker 1" ? "#FAE100" : "",
                   }}
                 />
               </div>
