@@ -95,7 +95,7 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
         width: 1280,
       }}
     >
-      {/* <video
+      <video
         className="absolute top-0 left-0 min-w-full min-h-full w-auto h-auto object-cover z-0"
         autoPlay
         muted
@@ -103,14 +103,14 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
       >
         <source src={bgVideo} type="video/mp4" />
         Your browser does not support the video tag.
-      </video> */}
+      </video>
 
       <div
         className="relative z-10  mx-auto border border-gray-300 shadow-lg"
         style={{
           height: 720,
           width: 1280,
-          backgroundColor:'#00FF00'
+          // backgroundColor:'#527c81'
         }}
       >
         <img src={imgHeader} className={styles.animatedImage} />
