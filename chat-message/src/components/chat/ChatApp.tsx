@@ -1,10 +1,11 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { MessageBox } from "react-chat-elements";
 import "react-chat-elements/dist/main.css";
+import notiVoice from "../../../noti_voice/iphone_notification.mp3";
 import bgVideo from "../../asset/bg.mp4";
 import imgHeader from "../../asset/header.png";
 import styles from "./ChatApp.module.css";
-import notiVoice from '../../../noti_voice/iphone_notification.mp3'
 
 interface ChatMessage {
   speaker: string;
@@ -34,6 +35,20 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
     };
   }, []);
 
+  const sendTelegramMessage = async (message: string) => {
+    const botToken = "6371688043:AAF8zyBpv-EP70012a8YuPU7lpL3ppoVfKM";
+    const chatId = "-4242127506";
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    try {
+      await axios.post(url, {
+        chat_id: chatId,
+        text: message,
+      });
+    } catch (error) {
+      console.error("Error sending message to Telegram:", error);
+    }
+  };
+
   useEffect(() => {
     const displayMessages = async () => {
       if (isMounted && currentIndex < chatData.length && hasUserInteracted) {
@@ -42,13 +57,15 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
         if (currentIndex === 0) {
           // Delay for 2 seconds before displaying the first message
 
-           const audio = new Audio(notiVoice);
+          const audio = new Audio(notiVoice);
           // Phát âm thanh
-          audio.play().catch((error) => console.error("Error playing audio:", error));
+          audio
+            .play()
+            .catch((error) => console.error("Error playing audio:", error));
           // Chờ âm thanh kết thúc hoặc hết 4 giây (lấy thời gian tối đa)
           await Promise.all([
-            new Promise((resolve) => audio.onended = resolve),
-            new Promise((resolve) => setTimeout(resolve, 2000))
+            new Promise((resolve) => (audio.onended = resolve)),
+            new Promise((resolve) => setTimeout(resolve, 2000)),
           ]);
         }
         setMessages((prevMessages) => {
@@ -66,6 +83,9 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
             .play()
             .catch((error) => console.error("Error playing audio:", error));
           audio.onended = () => {
+            if (currentIndex === chatData.length - 1) {
+              sendTelegramMessage("Video Success");
+            }
             setTimeout(() => {
               setCurrentIndex((prevIndex) => prevIndex + 1);
             }, 1000);
@@ -140,10 +160,11 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
                   date={new Date(msg.timestamp)}
                   position={msg.speaker === "Speaker 1" ? "right" : "left"}
                   styles={{
-                    backgroundColor: msg.speaker === "Speaker 1" ? "#FAE100" : "",
+                    backgroundColor:
+                      msg.speaker === "Speaker 1" ? "#FAE100" : "",
                     padding: 20,
                     borderRadius: 20,
-                    borderTopLeftRadius: msg.speaker === "Speaker 1" ?20 : 0,
+                    borderTopLeftRadius: msg.speaker === "Speaker 1" ? 20 : 0,
                     borderTopRightRadius: msg.speaker === "Speaker 1" ? 0 : 20,
                   }}
                   notchStyle={{
