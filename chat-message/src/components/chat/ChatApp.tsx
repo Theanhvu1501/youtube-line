@@ -10,6 +10,7 @@ const CHAT_ID = import.meta.env.VITE_CHAT_ID;
 const AVATAR_2 = import.meta.env.VITE_AVATAR_2;
 const AVATAR_3 = import.meta.env.VITE_AVATAR_3;
 const BG_VIDEO_PATH = import.meta.env.VITE_BG_VIDEO_PATH;
+const CHANNEL = import.meta.env.VITE_CHANNEL;
 
 interface ChatMessage {
   speaker: string;
@@ -43,10 +44,12 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
     const botToken = BOT_TOKEN;
     const chatId = CHAT_ID;
     const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    const dateNow = new Date();
+    const text = `✅ ${dateNow.toLocaleString()} (Channel ${CHANNEL}): ${message}`;
     try {
       await axios.post(url, {
         chat_id: chatId,
-        text: message,
+        text,
       });
     } catch (error) {
       console.error("Error sending message to Telegram:", error);
@@ -88,7 +91,7 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
             .catch((error) => console.error("Error playing audio:", error));
           audio.onended = () => {
             if (currentIndex === chatData.length - 1) {
-              sendTelegramMessage("Video Success");
+              sendTelegramMessage("Success");
             }
             setTimeout(() => {
               setCurrentIndex((prevIndex) => prevIndex + 1);

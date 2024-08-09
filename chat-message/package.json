@@ -1,7 +1,7 @@
 {
   "name": "vital",
   "version": "1.0.0",
-  "description": "Starter template for Vite with React (TypeScript). Supports Tailwind. Vitest and @react/testing-library configured and ready to go. Also ESLint, Prettier, Husky, Commit-lint and Atomic Design for components.",
+  "description": "Starter template for Vite with React (TypeScript). Supports Tailwind. Vitest and @react/testing-library configured and ready to go. Also ESLint, Prettier, Commit-lint and Atomic Design for components.",
   "homepage": "https://github.com/jvidalv/vital#readme",
   "repository": {
     "type": "git",
@@ -22,7 +22,6 @@
     "starter",
     "eslint",
     "prettier",
-    "husky",
     "commit-lint"
   ],
   "browserslist": [
@@ -35,14 +34,13 @@
     "yarn": ">=1.22.5"
   },
   "scripts": {
-    "dev1": "vite --mode channel1",
-    "dev2": "vite --mode channel2",
-    "dev3": "vite --mode channel3",
+    "dev1": "cross-env VITE_CHANNEL=1 vite --mode channel1",
+    "dev2": "cross-env VITE_CHANNEL=2 vite --mode channel2",
+    "dev3": "cross-env VITE_CHANNEL=3 vite --mode channel3",
     "build": "tsc && vite build",
     "test": "vitest",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "postinstall": "husky install"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@google-cloud/text-to-speech": "^5.3.0",
@@ -71,6 +69,7 @@
     "@typescript-eslint/parser": "^6.2.1",
     "@vitejs/plugin-react": "^4.0.4",
     "autoprefixer": "10.4.13",
+    "cross-env": "^7.0.3",
     "eslint": "^8.46.0",
     "eslint-plugin-import": "2.27.4",
     "eslint-plugin-react": "7.32.0",
