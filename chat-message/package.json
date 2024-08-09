@@ -35,7 +35,9 @@
     "yarn": ">=1.22.5"
   },
   "scripts": {
-    "dev": "vite",
+    "dev1": "vite --mode channel1",
+    "dev2": "vite --mode channel2",
+    "dev3": "vite --mode channel3",
     "build": "tsc && vite build",
     "test": "vitest",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

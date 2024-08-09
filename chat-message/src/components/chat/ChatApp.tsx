@@ -3,9 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { MessageBox } from "react-chat-elements";
 import "react-chat-elements/dist/main.css";
 import notiVoice from "../../../noti_voice/iphone_notification.mp3";
-import bgVideo from "../../asset/bg.mp4";
-import imgHeader from "../../asset/header.png";
 import styles from "./ChatApp.module.css";
+
+const BOT_TOKEN = import.meta.env.VITE_BOT_TOKEN;
+const CHAT_ID = import.meta.env.VITE_CHAT_ID;
+const AVATAR_2 = import.meta.env.VITE_AVATAR_2;
+const AVATAR_3 = import.meta.env.VITE_AVATAR_3;
+const BG_VIDEO_PATH = import.meta.env.VITE_BG_VIDEO_PATH;
 
 interface ChatMessage {
   speaker: string;
@@ -36,8 +40,8 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
   }, []);
 
   const sendTelegramMessage = async (message: string) => {
-    const botToken = "6371688043:AAF8zyBpv-EP70012a8YuPU7lpL3ppoVfKM";
-    const chatId = "-4242127506";
+    const botToken = BOT_TOKEN;
+    const chatId = CHAT_ID;
     const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
     try {
       await axios.post(url, {
@@ -121,7 +125,7 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
         muted
         loop
       >
-        <source src={bgVideo} type="video/mp4" />
+        <source src={BG_VIDEO_PATH} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -133,7 +137,7 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
           // backgroundColor:'#527c81'
         }}
       >
-        <img src={imgHeader} className={styles.animatedImage} />
+        <img src={"/asset/header.png"} className={styles.animatedImage} />
         <div className=" mb-4 p-4">
           {messages.map((msg) => (
             <div
@@ -149,7 +153,7 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
               >
                 {msg.speaker !== "Speaker 1" && (
                   <img
-                    src={msg.avatar || ""}
+                    src={msg.speaker === "Speaker 2" ? AVATAR_2 : AVATAR_3}
                     alt="Avatar"
                     className="w-20 h-20 rounded-full mr-2"
                   />
