@@ -37,6 +37,7 @@
     "dev1": "cross-env VITE_CHANNEL=1 vite --mode channel1",
     "dev2": "cross-env VITE_CHANNEL=2 vite --mode channel2",
     "dev3": "cross-env VITE_CHANNEL=3 vite --mode channel3",
+    "dev4": "cross-env VITE_CHANNEL=4 VITE_BG_GREEN=true vite --mode channel3",
     "build": "tsc && vite build",
     "test": "vitest",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

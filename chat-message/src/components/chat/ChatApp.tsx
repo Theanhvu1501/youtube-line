@@ -11,6 +11,7 @@ const AVATAR_2 = import.meta.env.VITE_AVATAR_2;
 const AVATAR_3 = import.meta.env.VITE_AVATAR_3;
 const BG_VIDEO_PATH = import.meta.env.VITE_BG_VIDEO_PATH;
 const CHANNEL = import.meta.env.VITE_CHANNEL;
+const VITE_BG_GREEN = import.meta.env.VITE_BG_GREEN;
 
 interface ChatMessage {
   speaker: string;
@@ -122,22 +123,24 @@ const ChatApp: React.FC<ChatAppProps> = ({ chatData }) => {
         width: 1280,
       }}
     >
-      <video
-        className="absolute top-0 left-0 min-w-full min-h-full w-auto h-auto object-cover z-0"
-        autoPlay
-        muted
-        loop
-      >
-        <source src={BG_VIDEO_PATH} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {!VITE_BG_GREEN ? (
+        <video
+          className="absolute top-0 left-0 min-w-full min-h-full w-auto h-auto object-cover z-0"
+          autoPlay
+          muted
+          loop
+        >
+          <source src={BG_VIDEO_PATH} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      ) : null}
 
       <div
         className="relative z-10  mx-auto border border-gray-300 shadow-lg"
         style={{
           height: 720,
           width: 1280,
-          // backgroundColor:'#527c81'
+          backgroundColor: VITE_BG_GREEN ? "#527c81" : "",
         }}
       >
         <img src={"/asset/header.png"} className={styles.animatedImage} />
